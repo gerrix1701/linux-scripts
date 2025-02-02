@@ -32,8 +32,7 @@ for i in ${SITES}; do
   elif [ ${STATUS} == 200 ] && [ -f ${DIR}/${FILENAME}.down ]; then
     echo "${i}: is up again :-)" | /usr/bin/go-sendxmpp --alias=news -t -c ${ROOM}
     rm ${DIR}/${FILENAME}.down || echo "ERROR: cannot remove status file ${DIR}/${FILENAME}.down"
-    echo "${i} OK"
   else
-    echo "${i} OK"
+    echo "${i}: no status change"
   fi
 done
