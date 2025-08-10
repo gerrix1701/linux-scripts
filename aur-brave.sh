@@ -11,7 +11,7 @@
 #
 # Set $STAGEDIR before running!
 #
-# V0.1, Gerrit <gerrit@funzt.one>, Aug. 2025
+# V0.1, Gerrit <gerrit'at'funzt.one>, Aug. 2025
 # - initial release
 #
 ##############################################
