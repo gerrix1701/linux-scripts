@@ -13,6 +13,8 @@
 #
 # V0.1, Gerrit <gerrit'at'funzt.one>, Aug. 2025
 # - initial release
+# V0.2, Gerrit <gerrit'at'funzt.one>, Aug. 2025
+# - fixed package path for installation
 #
 ##############################################
 
@@ -95,7 +97,7 @@ if [ "${BUILD}" = "true" ]; then
   if [ ${RET} == 0 ]; then
     echo ""
     echo -e "${GREEN}INFO: makepkg succeeded. You can install the package by executing:${COLRESET}"
-    echo "$ sudo pacman -U ${STAGEDIR}/${PKGNAME}/brave-bin-1:${LVERS}-x86_64.pkg.tar.zst"
+    echo "$ sudo pacman -U ${STAGEDIR}/${PKGNAME}_${LVERS}/brave-bin-1:${LVERS}-x86_64.pkg.tar.zst"
   else
     echo ""
     error "makepkg failed to build the package."
