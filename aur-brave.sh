@@ -15,6 +15,7 @@
 # - initial release
 # V0.2, Gerrit <gerrit'at'funzt.one>, Aug. 2025
 # - fixed package path for installation
+# - update latest version in version file
 #
 ##############################################
 
@@ -48,6 +49,7 @@ else
 fi
 
 if [ "${LVERS}" != "${PREVERS}" ]; then
+  echo "${LVERS}" > ${STAGEDIR}/brave-vers.txt
   BUILD=true
 fi
 
