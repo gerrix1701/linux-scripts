@@ -16,6 +16,8 @@
 # V0.2, Gerrit <gerrit'at'funzt.one>, Aug. 2025
 # - fixed package path for installation
 # - update latest version in version file
+# V0.3, Gerrit <gerrit'at'funzt.one>, Aug. 2025
+# - added timeout for connections
 #
 ##############################################
 
@@ -25,7 +27,7 @@ STAGEDIR=/path/to/your/build/directory  # where to build the new PKG, adjust thi
 ## do not change anything below this line ##
 PKGNAME=brave-bin  # AUR package name
 BUILD=false
-LVERS=`curl -s https://aur.archlinux.org/packages/${PKGNAME} | grep "Package Details" | awk '{print $4}' | cut -d "<" -f 1 | cut -d ":" -f 2`
+LVERS=`curl --connect-timeout 7 -s https://aur.archlinux.org/packages/${PKGNAME} | grep "Package Details" | awk '{print $4}' | cut -d "<" -f 1 | cut -d ":" -f 2`
 BINVERS=`echo ${LVERS} | cut -d "-" -f 1`
 DLURL="https://aur.archlinux.org/cgit/aur.git/snapshot/${PKGNAME}.tar.gz"
 GREEN='\033[0;32m'
@@ -57,7 +59,7 @@ if [ "${BUILD}" = "true" ]; then
   # Download snapshot
   echo ""
   echo -e "${GREEN}INFO: Downloading snapshot of ${PKGNAME} ...${COLRESET}"
-  wget ${DLURL} -O ${STAGEDIR}/${PKGNAME}.tar.gz || error "Failed to download snapshot from AUR."
+  wget --timeout 7 ${DLURL} -O ${STAGEDIR}/${PKGNAME}.tar.gz || error "Failed to download snapshot from AUR."
 
   # Unpack archive and delete archive file
   echo ""
@@ -72,8 +74,8 @@ if [ "${BUILD}" = "true" ]; then
   # get signed checksums
   echo ""
   echo -e "${GREEN}INFO: Downloading sha256sums ...${COLRESET}"
-  wget https://github.com/brave/brave-browser/releases/download/v${BINVERS}/brave-browser-${BINVERS}-linux-amd64.zip.sha256.asc || error "Failed to download signature file"
-  wget https://github.com/brave/brave-browser/releases/download/v${BINVERS}/brave-browser-${BINVERS}-linux-amd64.zip.sha256 || error "Failed to download checksum file."
+  wget --timeout 7 https://github.com/brave/brave-browser/releases/download/v${BINVERS}/brave-browser-${BINVERS}-linux-amd64.zip.sha256.asc || error "Failed to download signature file"
+  wget --timeout 7 https://github.com/brave/brave-browser/releases/download/v${BINVERS}/brave-browser-${BINVERS}-linux-amd64.zip.sha256 || error "Failed to download checksum file."
 
   # verify checksum file via gpg
   echo ""
